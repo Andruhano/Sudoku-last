@@ -20,7 +20,7 @@
             int[,] board = GenerateFullSudoku();
             int removeCount = difficulty switch
             {
-                "1" => 2,
+                "1" => 10,
                 "2" => 20,
                 "3" => 30,
                 _ => throw new ArgumentException("Incorrect difficulty selection.")
