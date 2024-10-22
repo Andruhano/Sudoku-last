@@ -23,13 +23,25 @@ namespace Sudoku_new_algorithm.Audio
         {
             Thread playThread = new Thread(() =>
             {
-                waveOutDevice = new WaveOutEvent();
-                audioFileReader = new AudioFileReader(filePath);
-                waveOutDevice.Init(audioFileReader);
-                waveOutDevice.Play();
-                while (waveOutDevice.PlaybackState == PlaybackState.Playing)
+                try
                 {
-                    Thread.Sleep(100);
+                    waveOutDevice = new WaveOutEvent();
+                    audioFileReader = new AudioFileReader(filePath);
+                    waveOutDevice.Init(audioFileReader);
+                    waveOutDevice.Play();
+
+                    while (waveOutDevice.PlaybackState == PlaybackState.Playing)
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка при воспроизведении аудио: {ex.Message}");
+                }
+                finally
+                {
+                    Stop(); // Освобождаем ресурсы в случае ошибки
                 }
             });
 
